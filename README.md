@@ -1,16 +1,32 @@
 <div align="center">
-  <table>
-    <tr>
-      <td width="110" align="center">
-        <img src="logo.png" alt="RD Triage logo" width="80">
-      </td>
-      <td align="left">
-        <h1>Large language models for specialty triage in rare diseases: a retrospective study</h1>
-      </td>
-    </tr>
-  </table>
+  <img src="logo.png" alt="RD-Triage logo" width="200">
 </div>
 
+<h1 align="center">Large language models for specialty triage in rare diseases: a retrospective study</h1>
+
+<div align="center">
+
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
+![Version](https://img.shields.io/badge/version-1.0.0-blue)
+![Dataset](https://img.shields.io/badge/Dataset-629%20cases-blue)
+![Task](https://img.shields.io/badge/task-specialty%20triage-orange)
+![Data](https://img.shields.io/badge/data-XLSX-lightgrey)
+
+</div>
+
+---
+
+## Table of Contents
+
+- [Overview](#overview)
+- [Dataset Summary](#dataset-summary)
+- [Repository Structure](#repository-structure)
+- [Data Format](#data-format)
+- [Clinical Use Notice](#clinical-use-notice)
+- [License](#license)
+- [Citation](#citation)
+
+---
 
 ## Overview
 
@@ -22,10 +38,13 @@
 
 **Interpretation:** LLMs showed potential as assistive tools for initial-visit specialty triage in rare diseases. Model choice, reasoning mode, and phenotype information density substantially influenced performance, suggesting that deployment should prioritize validated models with strong accuracy-efficiency balance. Future work should evaluate LLM-based specialty triage in prospective clinical settings and develop clinician-supervised workflows with traceable evidence support.
 
+**Funding:** National Natural Science Foundation of China; Pioneer and Leading Goose R&D Program of Zhejiang Province.
+
+---
 
 ## Dataset Summary
 
-The study includes **629 cases** from five sources:
+This repository provides **629 rare disease specialty triage cases** from five sources. Each case is adapted to the first-contact clinical setting and asks a model to select the most appropriate first-visit specialty from a fixed list of 30 candidate specialties.
 
 | Dataset | File | Cases | Diseases | Description |
 | --- | --- | ---: | ---: | --- |
@@ -35,29 +54,52 @@ The study includes **629 cases** from five sources:
 | RareBench MME | `Rarebench_MME.xlsx` | 38 | 16 | RareBench-derived phenotype cases adapted for specialty triage. |
 | FGDD | `FGDD_triage.xlsx` | 100 | 100 | Facial phenotype-associated rare disease cases from FGDD. |
 
+---
+
+## Repository Structure
+
+```text
+.
+|-- README.md                         # Project documentation
+|-- LICENSE                           # MIT license
+|-- logo.png                          # RD-Triage logo
+|-- RD Triage Manuscript.docx         # Manuscript describing the benchmark and experiments
+|-- publication_set_questions.xlsx    # Publication-derived clinical case summaries
+|-- Rarebench_HMS.xlsx                # RareBench HMS-derived triage cases
+|-- Rarebench_LIRICAL.xlsx            # RareBench LIRICAL-derived triage cases
+|-- Rarebench_MME.xlsx                # RareBench MME-derived triage cases
+`-- FGDD_triage.xlsx                  # FGDD-derived facial phenotype triage cases
+```
+
+---
 
 ## Data Format
 
-Each spreadsheet contains one case per row. The key fields are:
+Each spreadsheet contains one case per row. The most important columns are:
 
 | Field | Meaning |
 | --- | --- |
 | `Question` | Prompt-ready triage question containing patient or phenotype information and the fixed department list. |
-| `Department of Visit` | Reference specialty label. Some cases include multiple acceptable specialties separated by the Chinese delimiter `、`. |
+| `Department of Visit` | Reference specialty label. Some cases include multiple acceptable specialties separated by the Chinese delimiter `、` (Unicode `U+3001`). |
 | `Phenotype_id` | HPO phenotype identifiers, where available. |
 | `Phenotype_text` | Natural-language phenotype descriptions, where available. |
 | `PMID` or `pmid` | Source publication identifier, where available. |
 | `RareDisease_OMIM`, `RareDisease_ORPHA`, `Disease_id` | Disease identifiers, depending on the source dataset. |
 | `Report` | Structured clinical summary for publication-derived cases. |
 
-For evaluation, a prediction is considered correct if the selected specialty matches any acceptable label in `Department of Visit`.
-
+A prediction is counted as correct if the selected specialty matches any acceptable label in `Department of Visit`.
 
 ## Clinical Use Notice
 
 This repository is intended for research and benchmarking. The data and prompts should not be used as a standalone medical triage system. Any clinical deployment should include prospective validation, clinician supervision, privacy safeguards, and traceable evidence support.
 
+---
+
+## License
+
+This repository is released under the MIT License. See [LICENSE](LICENSE) for details.
+
+---
+
 ## Citation
 The manuscript is currently under review. 
-
-
